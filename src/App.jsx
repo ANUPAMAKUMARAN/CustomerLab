@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import "./App.css";
 
@@ -52,24 +50,26 @@ const App = () => {
     // Webhook URL
     const webhookUrl = "https://webhook.site/fc9bf63f-c3c5-43c0-aab5-fed3b460dbf8";
 
-  try {
-  await fetch(webhookUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+    try {
 
-  alert("Segment saved successfully!");
-  setShowPopup(false);
-  setSegmentName("");
-  setSelectedSchemas([]);
-} catch (err) {
-  alert("Error saving segment.");
-  console.error("Save error:", err);
-}
+      await fetch(`https://cors-anywhere.herokuapp.com/${webhookUrl}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: JSON.stringify(payload),
+      });
 
+
+      alert("Segment saved successfully!");
+      setShowPopup(false);
+      setSegmentName("");
+      setSelectedSchemas([]);
+    } catch (err) {
+      alert("Error saving segment.");
+      console.error("Save error:", err);
+    }
   };
 
   return (
